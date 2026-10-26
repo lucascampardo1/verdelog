@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q, Sum
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -21,6 +22,7 @@ def _filtrar_cargas(request):
     return cargas, busca, status
 
 
+@login_required
 def dashboard(request):
     cargas, busca, status = _filtrar_cargas(request)
     context = {
@@ -36,6 +38,7 @@ def dashboard(request):
     return render(request, 'cargas/dashboard.html', context)
 
 
+@login_required
 def lista(request):
     cargas, busca, status = _filtrar_cargas(request)
     return render(request, 'cargas/lista.html', {
@@ -44,6 +47,7 @@ def lista(request):
     })
 
 
+@login_required
 def criar(request):
     form = CargaForm(request.POST or None)
     if form.is_valid():
@@ -53,6 +57,7 @@ def criar(request):
     return render(request, 'cargas/form.html', {'form': form, 'titulo': 'Nova carga'})
 
 
+@login_required
 def editar(request, pk):
     carga = get_object_or_404(Carga, pk=pk)
     form = CargaForm(request.POST or None, instance=carga)
@@ -65,12 +70,14 @@ def editar(request, pk):
     })
 
 
+@login_required
 def detalhe(request, pk):
     return render(request, 'cargas/detalhe.html', {
         'carga': get_object_or_404(Carga, pk=pk),
     })
 
 
+@user_passes_test(lambda user: user.is_staff)
 def excluir(request, pk):
     carga = get_object_or_404(Carga, pk=pk)
     if request.method == 'POST':
