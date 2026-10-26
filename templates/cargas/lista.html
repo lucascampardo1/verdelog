@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Cargas · VerdeLog{% endblock %}
+{% block breadcrumb %}Todas as cargas{% endblock %}
+{% block content %}
+<div class="page-heading compact"><div><p class="eyebrow">Operação</p><h1>Todas as cargas</h1><p class="subtitle">Consulte e gerencie os registros da operação.</p></div><a class="button primary" href="{% url 'cargas:criar' %}">＋ Nova carga</a></div>
+<form class="filters" method="get"><div class="search-box">⌕<input name="q" value="{{ busca }}" placeholder="Buscar por código, cliente ou rota..."></div><select name="status"><option value="">Todos os status</option>{% for value,label in status_choices %}<option value="{{ value }}" {% if status_selecionado == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select><button class="button secondary" type="submit">Filtrar</button></form>
+<section class="panel"><div class="panel-heading"><div><h2>Registros cadastrados</h2><p>{{ cargas|length }} resultado{{ cargas|length|pluralize:"s" }}</p></div></div>{% include 'cargas/_table.html' %}</section>
+{% endblock %}

@@ -1,0 +1,4 @@
+<div class="table-wrap"><table><thead><tr><th>Carga</th><th>Cliente</th><th>Rota</th><th>Coleta</th><th>Status</th><th></th></tr></thead><tbody>
+{% for carga in cargas %}<tr><td><a class="code-link" href="{{ carga.get_absolute_url }}">{{ carga.codigo }}</a><span class="table-secondary">{{ carga.descricao }}</span></td><td>{{ carga.cliente }}</td><td><span class="route">{{ carga.origem }} <b>→</b> {{ carga.destino }}</span></td><td>{{ carga.data_coleta|date:"d/m/Y" }}</td><td><span class="badge {{ carga.status }}">{{ carga.get_status_display }}</span></td><td><a class="row-action" href="{{ carga.get_absolute_url }}">•••</a></td></tr>
+{% empty %}<tr><td colspan="6" class="empty">Nenhuma carga encontrada.</td></tr>{% endfor %}
+</tbody></table></div>

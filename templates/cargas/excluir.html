@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Remover carga · VerdeLog{% endblock %}
+{% block content %}
+<div class="confirm panel"><span class="warning-icon">!</span><h1>Remover esta carga?</h1><p>Você está prestes a remover <strong>{{ carga.codigo }} — {{ carga.descricao }}</strong>. Esta ação não pode ser desfeita.</p><form method="post">{% csrf_token %}<a class="button secondary" href="{{ carga.get_absolute_url }}">Cancelar</a><button class="button danger" type="submit">Sim, remover carga</button></form></div>
+{% endblock %}

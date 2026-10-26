@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}VerdeLog{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="{% url 'cargas:dashboard' %}"><span class="brand-mark">V</span><span>Verde<span class="brand-light">Log</span></span></a>
+    <p class="menu-label">Operação</p>
+    <nav>
+      <a class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'cargas:dashboard' %}"><span>⌂</span> Visão geral</a>
+      <a class="{% if request.resolver_match.url_name == 'lista' %}active{% endif %}" href="{% url 'cargas:lista' %}"><span>▤</span> Todas as cargas</a>
+      <a class="{% if request.resolver_match.url_name == 'criar' %}active{% endif %}" href="{% url 'cargas:criar' %}"><span>＋</span> Nova carga</a>
+    </nav>
+    <div class="sidebar-bottom"><span class="status-dot"></span><span>Sistema operacional<br><small>Atualizado agora</small></span></div>
+  </aside>
+  <main class="main-content">
+    <header class="topbar">
+      <div class="breadcrumb">VerdeLog <span>/</span> {% block breadcrumb %}Visão geral{% endblock %}</div>
+      <div class="topbar-user"><span class="avatar">O</span><span>Operador</span><span class="chevron">⌄</span></div>
+    </header>
+    {% if messages %}{% for message in messages %}<div class="alert success">{{ message }}</div>{% endfor %}{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

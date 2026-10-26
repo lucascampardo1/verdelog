@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}{{ carga.codigo }} · VerdeLog{% endblock %}
+{% block breadcrumb %}Detalhe da carga{% endblock %}
+{% block content %}
+<div class="page-heading compact"><div><p class="eyebrow">Carga / {{ carga.codigo }}</p><h1>{{ carga.descricao }}</h1><p class="subtitle">Cadastrada em {{ carga.criado_em|date:"d/m/Y \à\s H:i" }}</p></div><div class="heading-actions"><a class="button secondary" href="{% url 'cargas:editar' carga.pk %}">Editar</a><a class="button danger-outline" href="{% url 'cargas:excluir' carga.pk %}">Excluir</a></div></div>
+<div class="detail-grid"><section class="panel"><div class="detail-top"><span class="code-link">{{ carga.codigo }}</span><span class="badge {{ carga.status }}">{{ carga.get_status_display }}</span></div><div class="route-card"><div><small>ORIGEM</small><strong>{{ carga.origem }}</strong></div><span>→</span><div><small>DESTINO</small><strong>{{ carga.destino }}</strong></div></div><div class="detail-items"><div><small>CLIENTE</small><strong>{{ carga.cliente }}</strong></div><div><small>TIPO DE CARGA</small><strong>{{ carga.tipo }}</strong></div><div><small>PESO</small><strong>{{ carga.peso|floatformat:2 }} kg</strong></div><div><small>VALOR DECLARADO</small><strong>R$ {{ carga.valor|floatformat:2 }}</strong></div><div><small>DATA DE COLETA</small><strong>{{ carga.data_coleta|date:"d/m/Y" }}</strong></div></div></section><aside class="panel note"><h2>Observações</h2><p>{{ carga.observacoes|default:"Nenhuma observação registrada."|linebreaksbr }}</p></aside></div>
+{% endblock %}

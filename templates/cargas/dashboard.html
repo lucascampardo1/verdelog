@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Visão geral · VerdeLog{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">Segunda-feira, 26 de outubro</p><h1>Bom dia, operador.</h1><p class="subtitle">Acompanhe o fluxo das suas cargas em um só lugar.</p></div><a class="button primary" href="{% url 'cargas:criar' %}">＋ Cadastrar carga</a></div>
+<div class="stats-grid">
+  <div class="stat-card"><span class="stat-icon olive">▤</span><div><span class="stat-label">Total de cargas</span><strong>{{ total_cargas }}</strong><small class="trend">↗ Em toda a operação</small></div></div>
+  <div class="stat-card"><span class="stat-icon leaf">⇢</span><div><span class="stat-label">Em trânsito</span><strong>{{ em_transito }}</strong><small class="trend">↗ A caminho do destino</small></div></div>
+  <div class="stat-card"><span class="stat-icon muted">◷</span><div><span class="stat-label">Aguardando coleta</span><strong>{{ aguardando }}</strong><small class="trend neutral">Pendentes de saída</small></div></div>
+  <div class="stat-card"><span class="stat-icon dark">✓</span><div><span class="stat-label">Entregues</span><strong>{{ entregues }}</strong><small class="trend">↗ Operações concluídas</small></div></div>
+</div>
+<section class="panel">
+  <div class="panel-heading"><div><h2>Cargas recentes</h2><p>As últimas movimentações cadastradas</p></div><a class="text-link" href="{% url 'cargas:lista' %}">Ver todas <span>→</span></a></div>
+  {% include 'cargas/_table.html' %}
+</section>
+{% endblock %}
