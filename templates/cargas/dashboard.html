@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Visão geral · VerdeLog{% endblock %}
 {% block content %}
-<div class="page-heading"><div><p class="eyebrow">Segunda-feira, 26 de outubro</p><h1>Bom dia, operador.</h1><p class="subtitle">Acompanhe o fluxo das suas cargas em um só lugar.</p></div><a class="button primary" href="{% url 'cargas:criar' %}">＋ Cadastrar carga</a></div>
+<div class="page-heading"><div><p class="eyebrow">{{ data_atual|date:"l, j \d\e F"|capfirst }}</p><h1>{{ saudacao }}, {{ user.get_short_name|default:user.username|lower|capfirst }}.</h1><p class="subtitle">Acompanhe o fluxo das suas cargas em um só lugar.</p></div><a class="button primary" href="{% url 'cargas:criar' %}">＋ Cadastrar carga</a></div>
 <div class="stats-grid">
   <div class="stat-card"><span class="stat-icon olive">▤</span><div><span class="stat-label">Total de cargas</span><strong>{{ total_cargas }}</strong><small class="trend">↗ Em toda a operação</small></div></div>
   <div class="stat-card"><span class="stat-icon leaf">⇢</span><div><span class="stat-label">Em trânsito</span><strong>{{ em_transito }}</strong><small class="trend">↗ A caminho do destino</small></div></div>

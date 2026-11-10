@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q, Sum
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 
 from .forms import CargaForm
 from .models import Carga
@@ -25,10 +26,14 @@ def _filtrar_cargas(request):
 @login_required
 def dashboard(request):
     cargas, busca, status = _filtrar_cargas(request)
+    hora = timezone.localtime().hour
+    saudacao = 'Bom dia' if hora < 12 else 'Boa tarde' if hora < 18 else 'Boa noite'
     context = {
         'cargas': cargas[:8],
         'busca': busca,
         'status_selecionado': status,
+        'saudacao': saudacao,
+        'data_atual': timezone.localtime(),
         'total_cargas': Carga.objects.count(),
         'em_transito': Carga.objects.filter(status=Carga.Status.EM_TRANSITO).count(),
         'aguardando': Carga.objects.filter(status=Carga.Status.AGUARDANDO).count(),
